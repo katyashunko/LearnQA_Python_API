@@ -66,3 +66,15 @@ class BaseCase:
                     'firstName': 'learnqa',
                     'lastName': None,
                     'email': email}
+
+
+    def check_registration_parameters(self, password, username, firstName, lastName):
+        base_part = 'learnqa'
+        domain = 'example.com'
+        random_part = datetime.now().strftime("%m%d%Y%H%M%S")
+        email = f"{base_part}{random_part}@{domain}"
+        return {'password': password,
+                'username': username,
+                'firstName': firstName,
+                'lastName': lastName,
+                'email': email}
