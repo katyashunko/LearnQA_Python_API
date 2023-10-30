@@ -1,4 +1,5 @@
 import json.decoder
+from datetime import datetime
 
 from requests import Response
 class BaseCase:
@@ -18,3 +19,50 @@ class BaseCase:
         assert name in response_as_dict, f"Response JSON doesn't have key {name}"
         return response_as_dict[name]
 
+    def prepare_registration_data(self, email=None):
+        if email is None:
+            base_part = 'learnqa'
+            domain = 'example.com'
+            random_part = datetime.now().strftime("%m%d%Y%H%M%S")
+            email = f"{base_part}{random_part}@{domain}"
+        return {'password': '123',
+                'username': 'learnqa',
+                'firstName': 'learnqa',
+                'lastName': 'learnqa',
+                'email': email}
+
+    def prepare_registration_data_for_all_fields(self, variable):
+        base_part = 'learnqa'
+        domain = 'example.com'
+        random_part = datetime.now().strftime("%m%d%Y%H%M%S")
+        email = f"{base_part}{random_part}@{domain}"
+        if variable == 'email':
+            return {'password': '123',
+                    'username': 'learnqa',
+                    'firstName': 'learnqa',
+                    'lastName': 'learnqa',
+                    'email': None}
+        elif variable == 'password':
+            return {'password': None,
+                    'username': 'learnqa',
+                    'firstName': 'learnqa',
+                    'lastName': 'learnqa',
+                    'email': email}
+        elif variable == 'username':
+            return {'password': '123',
+                    'username': None,
+                    'firstName': 'learnqa',
+                    'lastName': 'learnqa',
+                    'email': email}
+        elif variable == 'firstName':
+            return {'password': '123',
+                    'username': 'learnqa',
+                    'firstName': None,
+                    'lastName': 'learnqa',
+                    'email': email}
+        else:
+            return {'password': '123',
+                    'username': 'learnqa',
+                    'firstName': 'learnqa',
+                    'lastName': None,
+                    'email': email}
